@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:rocket_chat_connector_flutter/services/authentication_service.dart';
 import 'package:rocket_chat_example/home_screen.dart';
+import 'package:rocket_chat_example/register_screen.dart';
 import 'package:rocket_chat_example/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -90,6 +91,17 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                   ),
                 ),
               ],
+            ),
+            const SizedBox(height: 16),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const RegisterScreen(),
+                  ),
+                );
+              },
+              child: const Text('Register'),
             ),
           ],
         ),

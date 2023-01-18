@@ -38,7 +38,7 @@ dependencies:
   rocket_chat_connector_flutter:
     git:
       url: https://github.com/kevinasurjadi/rocket-chat-connector-flutter.git
-      ref: master
+      ref: 40b70ae4e5b33d443329ca9e495272b444ba01dd
   web_socket_channel: ^2.3.0
   shared_preferences: ^2.0.15
   envify: ^2.0.2

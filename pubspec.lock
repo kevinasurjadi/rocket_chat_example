@@ -503,8 +503,8 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: master
-      resolved-ref: dd99ae50c2882a25481ac0f2b62120796a5ddf03
+      ref: "40b70ae4e5b33d443329ca9e495272b444ba01dd"
+      resolved-ref: "40b70ae4e5b33d443329ca9e495272b444ba01dd"
       url: "https://github.com/kevinasurjadi/rocket-chat-connector-flutter.git"
     source: git
     version: "0.1.0"

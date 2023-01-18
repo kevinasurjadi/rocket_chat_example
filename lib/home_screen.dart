@@ -3,8 +3,10 @@ import 'package:rocket_chat_connector_flutter/models/authentication.dart';
 import 'package:rocket_chat_connector_flutter/models/subscription.dart';
 import 'package:rocket_chat_connector_flutter/services/subscription_service.dart';
 import 'package:rocket_chat_connector_flutter/web_socket/web_socket_service.dart';
+import 'package:rocket_chat_example/authentication_screen.dart';
 import 'package:rocket_chat_example/chat_screen.dart';
 import 'package:rocket_chat_example/service_locator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -30,6 +32,26 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Home'),
+        actions: [
+          PopupMenuButton<String>(
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem<String>(
+                  child: const Text('Logout'),
+                  value: 'Logout',
+                  onTap: () async {
+                    await getIt<SharedPreferences>().remove('authentication');
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const AuthenticationScreen(),
+                      ),
+                    );
+                  },
+                ),
+              ];
+            },
+          ),
+        ],
       ),
       body: FutureBuilder<Subscription>(
           future: subscriptionService.getSubscriptions(widget.authentication),
