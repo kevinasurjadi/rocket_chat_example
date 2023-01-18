@@ -495,9 +495,11 @@ packages:
   rocket_chat_connector_flutter:
     dependency: "direct main"
     description:
-      path: rocket-chat-connector-flutter
-      relative: true
-    source: path
+      path: "."
+      ref: master
+      resolved-ref: dd99ae50c2882a25481ac0f2b62120796a5ddf03
+      url: "https://github.com/kevinasurjadi/rocket-chat-connector-flutter.git"
+    source: git
     version: "0.1.0"
   shared_preferences:
     dependency: "direct main"
