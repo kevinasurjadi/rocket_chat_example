@@ -78,7 +78,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                       await sharedPreferences.setString(
                           'authentication', jsonEncode(result.toMap()));
 
-                      await Navigator.of(context).push(
+                      await Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (context) => HomeScreen(
                             authentication: result,
