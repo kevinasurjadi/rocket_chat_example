@@ -4,7 +4,7 @@ import 'package:rocket_chat_connector_flutter/models/subscription.dart';
 import 'package:rocket_chat_connector_flutter/services/subscription_service.dart';
 import 'package:rocket_chat_connector_flutter/web_socket/web_socket_service.dart';
 import 'package:rocket_chat_example/chat_screen.dart';
-import 'package:rocket_chat_example/constants.dart';
+import 'package:rocket_chat_example/service_locator.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,20 +20,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late WebSocketService webSocketService;
-  late WebSocketChannel webSocketChannel;
-  late SubscriptionService subscriptionService;
+  final WebSocketService webSocketService = getIt<WebSocketService>();
+  final SubscriptionService subscriptionService = getIt<SubscriptionService>();
 
-  @override
-  void initState() {
-    // webSocketService = WebSocketService();
-    // webSocketChannel = webSocketService.connectToWebSocket(
-    //   rocketChatWebSocketUrl,
-    //   widget.authentication,
-    // );
-    subscriptionService = SubscriptionService(rocketChatHttpService);
-    super.initState();
-  }
+  late WebSocketChannel webSocketChannel;
 
   @override
   Widget build(BuildContext context) {

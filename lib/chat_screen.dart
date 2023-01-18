@@ -9,7 +9,8 @@ import 'package:rocket_chat_connector_flutter/models/authentication.dart';
 import 'package:rocket_chat_connector_flutter/models/room.dart';
 import 'package:rocket_chat_connector_flutter/services/room_service.dart';
 import 'package:rocket_chat_connector_flutter/web_socket/web_socket_service.dart';
-import 'package:rocket_chat_example/constants.dart';
+import 'package:rocket_chat_example/env.dart';
+import 'package:rocket_chat_example/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -26,18 +27,18 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  final RoomService _roomService = getIt<RoomService>();
+  final WebSocketService _webSocketService = getIt<WebSocketService>();
+
   late List<types.Message> _messages;
   late StreamController<List<types.Message>> _messageStream;
   late types.User _user;
-  late WebSocketService _ws;
-  late RoomService _roomService;
+
   WebSocketChannel? _channel;
   StreamSubscription? _subs;
 
   @override
   void initState() {
-    _ws = WebSocketService();
-    _roomService = RoomService(rocketChatHttpService);
     _messages = [];
     _messageStream = StreamController();
     _messageStream.sink.add(_messages);
@@ -49,7 +50,8 @@ class _ChatScreenState extends State<ChatScreen> {
     _messageStream.close();
     _subs?.cancel();
     if (_channel != null) {
-      _ws.streamRoomMessagesUnsubscribe(_channel!, Room(id: widget.roomId));
+      _webSocketService.streamRoomMessagesUnsubscribe(
+          _channel!, Room(id: widget.roomId));
     }
     super.dispose();
   }
@@ -79,8 +81,9 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
       ),
     );
-    _channel = _ws.connectToWebSocket(rocketChatWebSocketUrl, authentication);
-    _ws.streamRoomMessagesSubscribe(
+    _channel = _webSocketService.connectToWebSocket(
+        Env.rocketChatWebSocketUrl, authentication);
+    _webSocketService.streamRoomMessagesSubscribe(
       _channel!,
       Room(
         id: widget.roomId,
@@ -140,7 +143,13 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void _handleSendPressed(types.PartialText message) {
     if (_channel != null) {
-      _ws.sendMessageOnRoom(message.text, _channel!, Room(id: widget.roomId));
+      _webSocketService.sendMessageOnRoom(
+        message.text,
+        _channel!,
+        Room(
+          id: widget.roomId,
+        ),
+      );
     }
   }
 }

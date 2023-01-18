@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:rocket_chat_connector_flutter/services/authentication_service.dart';
-import 'package:rocket_chat_example/constants.dart';
 import 'package:rocket_chat_example/home_screen.dart';
+import 'package:rocket_chat_example/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthenticationScreen extends StatefulWidget {
@@ -14,6 +14,9 @@ class AuthenticationScreen extends StatefulWidget {
 }
 
 class _AuthenticationScreenState extends State<AuthenticationScreen> {
+  final AuthenticationService _authenticationService =
+      getIt<AuthenticationService>();
+
   late TextEditingController _usernameController;
   late TextEditingController _passwordController;
 
@@ -65,10 +68,7 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: () async {
-                      var authService =
-                          AuthenticationService(rocketChatHttpService);
-
-                      var result = await authService.login(
+                      var result = await _authenticationService.login(
                         _usernameController.text,
                         _passwordController.text,
                       );
