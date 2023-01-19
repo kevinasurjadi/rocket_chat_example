@@ -3,11 +3,13 @@ import 'package:rocket_chat_connector_flutter/models/authentication.dart';
 import 'package:rocket_chat_connector_flutter/models/subscription.dart';
 import 'package:rocket_chat_connector_flutter/services/subscription_service.dart';
 import 'package:rocket_chat_connector_flutter/web_socket/web_socket_service.dart';
-import 'package:rocket_chat_example/authentication_screen.dart';
-import 'package:rocket_chat_example/chat_screen.dart';
+import 'package:rocket_chat_example/models/communication_type.dart';
 import 'package:rocket_chat_example/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
+
+import 'authentication_screen.dart';
+import 'chat_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   final Authentication authentication;
@@ -87,7 +89,10 @@ class _HomeScreenState extends State<HomeScreen> {
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                 builder: (context) => ChatScreen(
-                                  roomId: update.rid!,
+                                  type: update.t == 'c'
+                                      ? CommunicationType.channel
+                                      : CommunicationType.room,
+                                  id: update.rid!,
                                 ),
                               ),
                             );

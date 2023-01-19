@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:rocket_chat_connector_flutter/models/authentication.dart';
-import 'package:rocket_chat_example/authentication_screen.dart';
-import 'package:rocket_chat_example/home_screen.dart';
+import 'package:rocket_chat_example/screens/authentication_screen.dart';
+import 'package:rocket_chat_example/screens/home_screen.dart';
 import 'package:rocket_chat_example/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

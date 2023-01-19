@@ -2,10 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:rocket_chat_connector_flutter/services/authentication_service.dart';
-import 'package:rocket_chat_example/home_screen.dart';
-import 'package:rocket_chat_example/register_screen.dart';
 import 'package:rocket_chat_example/service_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'home_screen.dart';
+import 'register_screen.dart';
 
 class AuthenticationScreen extends StatefulWidget {
   const AuthenticationScreen({Key? key}) : super(key: key);
